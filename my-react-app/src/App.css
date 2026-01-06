@@ -46,6 +46,7 @@
     color: black;
     padding: 15px 30px;
     justify-content: space-between; /*pushes logo to the left and links to the right */
+    border-bottom: 1px solid gainsboro;
 }
 
 .nav-links {
@@ -54,8 +55,12 @@
     gap: 25px;
     margin: 0;
     padding: 0;
+    margin-bottom: 10px;
 }
 
+.logo {
+  font-weight: 800;
+}
 .nav-links a{
     color: blue;
     text-decoration: none; /* removes underline from nav list */
@@ -64,4 +69,51 @@
 
 .nav-links a:hover {
     color: black;
+}
+
+.service-container > h2 {
+  margin-bottom: 50px;
+}
+
+.service-container > div > ul {
+  list-style: none;
+  box-sizing: border-box;
+  display: flex;
+  white-space: normal;
+  justify-content: center;
+}
+
+.card > ul {
+  gap: 25px;
+}
+
+.card2 > ul {
+  gap: 25px;
+}
+.card > ul > li {
+  list-style: none;
+  gap: 25px;
+  margin-bottom: 60px;
+  padding: 8px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card2 > ul > li{
+  list-style: none;
+  gap: 25px;
+  margin-bottom: 30px;
+  padding: 8px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card p {
+  font-size: 15px;
+}
+
+.card2 p{
+  font-size: 15px;
 }
