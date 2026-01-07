@@ -1,14 +1,14 @@
-/* .navbar {
-    display: flex; /* separates the div (logo) from list (nav) 
+.navbar {
+    display: flex; /* separates the div (logo) from list (nav) */
     color: black; 
     padding: 15px 30px;
-    justify-content: space-between; /*pushes logo to the left and links to the right
+    justify-content: space-between; /*pushes logo to the left and links to the right */
     border-bottom: 1px solid gainsboro;
 }
 
 .nav-links {
     display: flex;
-    list-style: none; /* removes bullet points from nav list 
+    list-style: none; /* removes bullet points from nav list */
     gap: 25px;
     margin: 0;
     padding: 0;
@@ -18,17 +18,16 @@
 .logo {
   font-weight: 800;
 }
-.nav-links a{
+.nav-links {
     color: blue;
-    text-decoration: none; /* removes underline from nav list
     transition: all 0.5s ease 0s;
 }
 
-.nav-links a:hover {
+.nav-links:hover {
     color: black;
 }
 
-.service-container > h2 {
+/* .service-container > h2 {
   margin-bottom: 50px;
   margin-top: 15px;
 }
@@ -94,16 +93,14 @@
 } */
 
 .service-cards {
-    display: flex; /* separates the div (logo) from list (nav) */
+    display: flex; 
     color: black;
     padding: 15px 30px;
-    justify-content: space-between; /* pushes logo to the left and links to the right */
-    border-bottom: 1px solid gainsboro;
-    list-style: none; /* removes bullet points from nav list */
+    justify-content: center; 
     gap: 25px;
-    margin: 0;
-    padding: 0;
     margin-bottom: 10px;
+    margin-top: 30px;
+    box-sizing: border-box;
 }
 
 .service-cards li {
@@ -115,6 +112,7 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     height: 100px;
+    width: 300px;
     transition: transform 0.8s ease 0s, filter 0.3s ease;
 }
 
@@ -134,6 +132,42 @@
     margin-top: 20px;
 }
 
-.service-cards li.active {
-    border: 2px solid blue; /* Example style for active state */
+
+.service-cards2 {
+    display: flex; 
+    color: black;
+    padding: 15px 30px;
+    justify-content: center; 
+    gap: 25px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.service-cards2 li {
+    list-style: none;
+    gap: 25px;
+    margin-bottom: 60px;
+    padding: 8px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 100px;
+    width: 300px;
+    transition: transform 0.8s ease 0s, filter 0.3s ease;
+}
+
+.service-cards2 li:hover {
+    outline: none;
+    transform: scale(1.1);
+}
+
+.service-cards2 h4 {
+    font-size: 15px;
+    font-weight: 800;
+    margin: 0;
+}
+
+.service-cards2 p {
+    font-size: 15px;
+    margin-top: 20px;
 }
