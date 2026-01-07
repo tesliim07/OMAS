@@ -1,14 +1,14 @@
-.navbar {
-    display: flex; /* separates the div (logo) from list (nav) */
-    color: black;
+/* .navbar {
+    display: flex; /* separates the div (logo) from list (nav) 
+    color: black; 
     padding: 15px 30px;
-    justify-content: space-between; /*pushes logo to the left and links to the right */
+    justify-content: space-between; /*pushes logo to the left and links to the right
     border-bottom: 1px solid gainsboro;
 }
 
 .nav-links {
     display: flex;
-    list-style: none; /* removes bullet points from nav list */
+    list-style: none; /* removes bullet points from nav list 
     gap: 25px;
     margin: 0;
     padding: 0;
@@ -20,7 +20,7 @@
 }
 .nav-links a{
     color: blue;
-    text-decoration: none; /* removes underline from nav list */
+    text-decoration: none; /* removes underline from nav list
     transition: all 0.5s ease 0s;
 }
 
@@ -91,4 +91,49 @@
     outline: none;
     transition: transform 0.8s ease 0s, filter 0.3s ease;
     transform: scale(1.1);
+} */
+
+.service-cards {
+    display: flex; /* separates the div (logo) from list (nav) */
+    color: black;
+    padding: 15px 30px;
+    justify-content: space-between; /* pushes logo to the left and links to the right */
+    border-bottom: 1px solid gainsboro;
+    list-style: none; /* removes bullet points from nav list */
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+.service-cards li {
+    list-style: none;
+    gap: 25px;
+    margin-bottom: 60px;
+    padding: 8px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 100px;
+    transition: transform 0.8s ease 0s, filter 0.3s ease;
+}
+
+.service-cards li:hover {
+    outline: none;
+    transform: scale(1.1);
+}
+
+.service-cards h4 {
+    font-size: 15px;
+    font-weight: 800;
+    margin: 0;
+}
+
+.service-cards p {
+    font-size: 15px;
+    margin-top: 20px;
+}
+
+.service-cards li.active {
+    border: 2px solid blue; /* Example style for active state */
 }
