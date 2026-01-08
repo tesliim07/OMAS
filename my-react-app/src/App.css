@@ -198,3 +198,27 @@
 .not-current-month {
   color: #ccc;
 }
+
+
+
+.landing-content {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.role-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.role-button {
+    padding: 12px 30px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+}

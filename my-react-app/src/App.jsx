@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
+import Landing from './Components/landingPage'
 import Home from './Components/home'
 import Services from './Components/services'
 import CalendarView from './Components/calendarView'
@@ -10,10 +11,12 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<Landing />} />
         <Route path="/home" element={<Home />} />
         <Route path="/services" element={<Services />} />
         <Route path="/settings" element={<div>Settings Page</div>} />
         <Route path="/calendarView" element={<CalendarView />} />
+        <Route path="/admin" element={<div>Admin Page - Coming Soon</div>} />
         <Route path="/timeSlot" element={<TimeSlot/>} />
       </Routes>
     </Router>
