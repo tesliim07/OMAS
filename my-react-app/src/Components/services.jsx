@@ -1,77 +1,47 @@
-import { useNavigate } from 'react-router-dom'
-import NavBar from './navbar'
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import NavBar from "./navbar";
+import axios from "axios";
 
-const services = () => {
-    const navigate = useNavigate();
+const Services = () => {
+  const navigate = useNavigate();
+  const [services, setServices] = useState([]);
 
-    const serviceList = [
-        {
-            title: "General Check-up",
-            description: "Routine health assessment and consultation",
-            path: "/calendarView"
-        },
-        {
-            title: "Dental Cleaning",
-            description: "Professional teeth cleaning and oral hygiene",
-            path: "/calendarView"
-        },
-        {
-            title: "Eye Exam",
-            description: "Comprehensive vision testing and eye health check",
-            path: "/calendarView"
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await axios.get(
+          "https://localhost:7014/api/Service/getAllServices"
+        );
+        if (response.status === 200) {
+          setServices(response.data);
+          console.log("Services fetched:", response.data);
         }
-    ];
+      } catch (error) {
+        console.error("Error fetching services:", error);
+      }
+    };
+    fetchServices();
+  }, []);
 
-    const serviceList2 = [
-        {
-            title: "Vaccination",
-            description: "Immunization services for various diseases",
-            path: "/calendarView"
-        },
-        {
-            title: "Physical Therapy",
-            description: "Rehabilitation and pain management sessions",
-            path: "/calendarView"
-        },
-        {
-            title: "Dermatology Consultation",
-            description: "Skin condition diagnosis and treatment",
-            path: "/calendarView"
-        }
-    ];
-
-
-    return (
-        <div>
-            <NavBar />
-
-            <ul class="service-cards">
-                {serviceList.map((service) => (
-                    <li
-                        key={service.title}
-                        onClick={() => navigate(service.path)}
-                        style={{ cursor: "pointer" }}
-                    >
-                        <h4>{service.title}</h4>
-                        <p>{service.description}</p>
-                    </li>
-                ))}
-            </ul>
-            <ul class="service-cards2">
-                {serviceList2.map((service) => (
-                    <li
-                        key={service.title}
-                        onClick={() => navigate(service.path)}
-                        style={{ cursor: "pointer" }}
-                    >
-                        <h4>{service.title}</h4>
-                        <p>{service.description}</p>
-                    </li>
-                ))}
-            </ul>
-
-        </div>
-    );
+  return (
+    <div>
+      <NavBar />
+      <ul class="service-cards">
+        {services.map((service) => (
+          <li
+            key={service.serviceId}
+            onClick={() => navigate("/calendarView")}
+            style={{ cursor: "pointer" }}
+          >
+            <h4>{service.serviceName}</h4>
+            <p>{service.serviceDescription}</p>
+            <p>Service Duration : {service.durationInMinutes} mins</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 };
 
-export default services
+export default Services;
