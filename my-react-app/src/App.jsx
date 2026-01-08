@@ -6,6 +6,7 @@ import Home from './Components/home'
 import Services from './Components/services'
 import CalendarView from './Components/calendarView'
 import TimeSlot from './Components/timeSlot'
+import AdminLogin from './Components/adminLogin'
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
         <Route path="/services" element={<Services />} />
         <Route path="/settings" element={<div>Settings Page</div>} />
         <Route path="/calendarView" element={<CalendarView />} />
-        <Route path="/admin" element={<div>Admin Page - Coming Soon</div>} />
+        <Route path="/adminLogin" element={<AdminLogin />} />
+        <Route path="/admin-dashboard" element={<div>Admin Dashboard</div>} />
         <Route path="/timeSlot" element={<TimeSlot/>} />
       </Routes>
     </Router>

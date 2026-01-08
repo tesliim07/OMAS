@@ -6,7 +6,9 @@ const Landing = () => {
 
     return (
         <div>
-            <NavBar />  {/* Reuse existing navbar */}
+             <div className="landing-header">
+                <h1>Medical Appointment Booking</h1>
+            </div>
 
             <div className="landing-content">
                 <h2>Welcome to Medical Appointment Booking</h2>
@@ -22,7 +24,7 @@ const Landing = () => {
                     
                     <button 
                         className="role-button"
-                        onClick={() => navigate('/admin')}
+                        onClick={() => navigate('/adminLogin')}
                     >
                         Administrator
                     </button>
