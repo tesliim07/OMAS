@@ -8,16 +8,19 @@ const services = () => {
         {
             title: "General Check-up",
             description: "Routine health assessment and consultation",
+            duration: `Duration: ${30} minutes`,
             path: "/calendarView"
         },
         {
             title: "Dental Cleaning",
             description: "Professional teeth cleaning and oral hygiene",
+            duration: `Duration: ${30} minutes`,
             path: "/calendarView"
         },
         {
             title: "Eye Exam",
             description: "Comprehensive vision testing and eye health check",
+            duration: `Duration: ${45} minutes`,
             path: "/calendarView"
         }
     ];
@@ -26,16 +29,19 @@ const services = () => {
         {
             title: "Vaccination",
             description: "Immunization services for various diseases",
+            duration: `Duration: ${25} minutes`,
             path: "/calendarView"
         },
         {
             title: "Physical Therapy",
             description: "Rehabilitation and pain management sessions",
+            duration: `Duration: ${1} hour`,
             path: "/calendarView"
         },
         {
             title: "Dermatology Consultation",
             description: "Skin condition diagnosis and treatment",
+            duration: `Duration: ${25} minutes`,
             path: "/calendarView"
         }
     ];
@@ -54,6 +60,7 @@ const services = () => {
                     >
                         <h4>{service.title}</h4>
                         <p>{service.description}</p>
+                        <p>{service.duration}</p>
                     </li>
                 ))}
             </ul>
@@ -66,6 +73,7 @@ const services = () => {
                     >
                         <h4>{service.title}</h4>
                         <p>{service.description}</p>
+                        <p>{service.duration}</p>
                     </li>
                 ))}
             </ul>

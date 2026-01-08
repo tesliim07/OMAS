@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import NavBar from './navbar'
 import { Info, DateTime, Interval } from 'luxon'
 
@@ -34,7 +34,7 @@ const CalendarView = () => {
   };
 
   const handleDateClick = (date) => {
-    navigate('/timeSlot', {state: {selectedDate: date.toISODate()}});
+    navigate('/timeSlot', { state: { selectedDate: date.toISODate() } });
   };
 
   const renderDayCell = (day) => {
@@ -43,8 +43,11 @@ const CalendarView = () => {
 
     return (
       <div
-        class={`calendar-grid-cell ${isToday ? 'today' : ''} ${isCurrentMonth ? '' : 'not-current-month'
-          }`}
+        class={`calendar-grid-cell ${isToday ? 'today' : ''} ${isCurrentMonth ? '' : 'not-current-month'}`}
+        style={{
+          cursor: isCurrentMonth ? 'pointer' : 'default',
+          color: isCurrentMonth ? 'inherit' : 'gray',
+        }}
       >
         {day.day}
       </div>
@@ -60,15 +63,16 @@ const CalendarView = () => {
       <div class="calendar-container">
         <div class="calendar">
           <div class="calendar-headline">
-            <div class="calendar-headline-month">
-              {firstDayOfActiveMonth.monthLong} {firstDayOfActiveMonth.year}
-            </div>
             <div class="calendar-headline-controls">
-              <div class="calendar-headline-control" onClick={() => goToPreviousMonth()}>
-                {/* <img src="./images/right-arrow.png"></img> */}
+              <div class="calendar-headline-control-previous" onClick={() => goToPreviousMonth()}>
+                <p>Previous</p>
               </div>
-              <div class="calendar-headline-controls-today" onClick={() => goToToday()}>Today</div>
-              <div class="calendar-headline-control" onClick={() => goToNextMonth()}></div>
+              <div class="calendar-headline-month">
+                {firstDayOfActiveMonth.monthLong} {firstDayOfActiveMonth.year}
+              </div>
+              <div class="calendar-headline-control-next" onClick={() => goToNextMonth()}>
+                <p>Next</p>
+              </div>
             </div>
           </div>
           <div class="calendar-weeks-grid">
@@ -79,16 +83,19 @@ const CalendarView = () => {
             ))}
           </div>
           <div class="calendar-grid">
-            {daysOfMonth.map((day, dayIndex) => (
-              <div 
-              key={dayIndex}
-              class="calendar-grid-cell" 
-              onClick={() => handleDateClick(day)}
-              style={{cursor: "pointer"}}
-              >
-                {renderDayCell(day)}
-              </div>
-            ))}
+            {daysOfMonth.map((day, dayIndex) => {
+              const isCurrentMonth = day.hasSame(firstDayOfActiveMonth, 'month');
+              return (
+                <div
+                  key={dayIndex}
+                  className="calendar-grid-cell"
+                  onClick={isCurrentMonth ? () => handleDateClick(day) : null}
+                  style={{ cursor: isCurrentMonth ? "pointer" : "default" }}
+                >
+                  {renderDayCell(day)}
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

@@ -19,7 +19,7 @@
   font-weight: 800;
 }
 .nav-links {
-    color: blue;
+    color: rgba(15, 127, 248, 0.97);
     transition: all 0.5s ease 0s;
 }
 
@@ -64,9 +64,8 @@
 
 .service-cards p {
     font-size: 15px;
-    margin-top: 20px;
+    margin-top: 10px;
 }
-
 
 .service-cards2 {
     display: flex; 
@@ -145,16 +144,16 @@
   display: flex;
 }
 
-.calendar-headline-control {
+.calendar-headline-control-previous {
   cursor: pointer;
+  color: rgba(15, 127, 248, 0.97);
+  margin-right: 250px;
 }
 
-.calendar-headline-control:hover {
-  text-decoration: underline;
-}
-
-.calendar-headline-controls-today {
-  margin: 0 10px;
+.calendar-headline-control-next {
+  cursor: pointer;
+  color: rgba(15, 127, 248, 0.97);
+  margin-left: 250px;
 }
 
 .calendar-weeks-grid {
@@ -180,21 +179,20 @@
 }
 
 .calendar-grid-cell {
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+  padding: 7px;
+  text-align: center;
+  transition: background-color 0.7s ease;
 }
 
 .calendar-grid-cell:hover {
-  background: #9ba3bf;
+  color: rgba(15, 127, 248, 0.97); 
 }
 
-.calendar-grid-cell-active {
-  background: #9ba3bf;
+.calendar-grid-cell.not-current-month {
+  color: #f9f9f9; 
 }
 
-.not-current-month {
-  color: #ccc;
+.calendar-grid-cell.today {
+  color: rgba(2, 88, 180, 0.97);
+  font-weight: bold;
 }
