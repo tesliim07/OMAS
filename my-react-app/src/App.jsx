@@ -7,6 +7,7 @@ import Services from './Components/services'
 import CalendarView from './Components/calendarView'
 import TimeSlot from './Components/timeSlot'
 import AdminLogin from './Components/adminLogin'
+import AdminDashboard from './Components/adminDashboard'
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
         <Route path="/settings" element={<div>Settings Page</div>} />
         <Route path="/calendarView" element={<CalendarView />} />
         <Route path="/adminLogin" element={<AdminLogin />} />
-        <Route path="/admin-dashboard" element={<div>Admin Dashboard</div>} />
+        <Route path="/adminDashboard" element={<AdminDashboard />} />
         <Route path="/timeSlot" element={<TimeSlot/>} />
       </Routes>
     </Router>
