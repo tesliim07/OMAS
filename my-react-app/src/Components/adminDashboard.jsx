@@ -61,9 +61,45 @@ const AdminDashboard = () => {
         }
     };
 
-    // Handle create service button
-    const handleCreateService = () => {
-        navigate('/create-service');
+    const [showModal, setShowModal] = useState(false);
+    const [newServiceName, setNewServiceName] = useState('');
+    const [newServiceDescription, setNewServiceDescription] = useState('');
+    const [newServiceDuration, setNewServiceDuration] = useState('30');
+
+    // Open modal
+    const handleOpenModal = () => {
+        setShowModal(true);
+    };
+
+    // Close modal
+    const handleCloseModal = () => {
+        setShowModal(false);
+        // Reset form
+        setNewServiceName('');
+        setNewServiceDescription('');
+        setNewServiceDuration('30');
+    };
+
+    // Handle create service
+    const handleCreateService = (e) => {
+        e.preventDefault();
+        
+        if (!newServiceName || !newServiceDescription || !newServiceDuration) {
+            alert('Please fill in all fields');
+            return;
+        }
+
+        // Create new service
+        const newService = {
+            id: services.length + 1,
+            name: newServiceName,
+            description: newServiceDescription,
+            duration: parseInt(newServiceDuration)
+        };
+
+        setServices([...services, newService]);
+        alert('Service created successfully!');
+        handleCloseModal();
     };
 
     return (
@@ -83,7 +119,7 @@ const AdminDashboard = () => {
                         </div>
                         <button 
                             className="btn-create-service"
-                            onClick={handleCreateService}
+                            onClick={handleOpenModal}
                         >
                            + Create Service
                         </button>
@@ -119,6 +155,59 @@ const AdminDashboard = () => {
                 </div> 
     
             </div>
+            {showModal && (
+                <div className="modal-overlay" onClick={handleCloseModal}>
+                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                        <h2>Create New Service</h2>
+                        <form onSubmit={handleCreateService}>
+                            <div className="form-group">
+                                <label htmlFor="serviceName">Service Name</label>
+                                <input
+                                    type="text"
+                                    id="serviceName"
+                                    value={newServiceName}
+                                    onChange={(e) => setNewServiceName(e.target.value)}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="serviceDescription">Service Description</label>
+                                <textarea
+                                    type="text"
+                                    id="serviceDescription"
+                                    value={newServiceDescription}
+                                    onChange={(e) => setNewServiceDescription(e.target.value)}
+                                    rows = "4"
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="serviceDuration">Service Duration</label>
+                                <div className="duration-input-group">
+                                    <input
+                                        type="number"
+                                        id="serviceDuration"
+                                        value={newServiceDuration}
+                                        onChange={(e) => setNewServiceDuration(e.target.value)}                                                        
+                                    />
+                                    <span>minutes</span>
+                                </div>
+                            </div>
+                            <div className="modal-buttons">
+                                <button 
+                                    type="button" 
+                                    className="btn-cancel"
+                                    onClick={handleCloseModal}
+                                >
+                                    Cancel
+                                </button>
+                                <button type="submit" className="btn-submit">
+                                    Create Service
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
