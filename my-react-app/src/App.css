@@ -1,116 +1,121 @@
 .navbar {
-    display: flex; /* separates the div (logo) from list (nav) */
-    color: black; 
-    padding: 15px 30px;
-    justify-content: space-between; /*pushes logo to the left and links to the right */
-    border-bottom: 1px solid gainsboro;
+  display: flex;
+  /* separates the div (logo) from list (nav) */
+  color: black;
+  padding: 15px 30px;
+  justify-content: space-between;
+  /*pushes logo to the left and links to the right */
+  border-bottom: 1px solid gainsboro;
 }
 
 .nav-links {
-    display: flex;
-    list-style: none; /* removes bullet points from nav list */
-    gap: 25px;
-    margin: 0;
-    padding: 0;
-    margin-bottom: 10px;
+  display: flex;
+  list-style: none;
+  /* removes bullet points from nav list */
+  gap: 25px;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 10px;
 }
 
 .logo {
   font-weight: 800;
 }
+
 .nav-links {
-    color: rgba(15, 127, 248, 0.97);
-    transition: all 0.5s ease 0s;
+  color: rgba(15, 127, 248, 0.97);
+  transition: all 0.5s ease 0s;
 }
 
 .nav-links:hover {
-    color: black;
+  color: black;
 }
 
 .service-cards {
-    display: flex; 
-    color: black;
-    padding: 15px 30px;
-    justify-content: center; 
-    gap: 25px;
-    margin-bottom: 10px;
-    margin-top: 30px;
-    box-sizing: border-box;
+  display: flex;
+  color: black;
+  padding: 15px 30px;
+  justify-content: center;
+  gap: 25px;
+  margin-bottom: 10px;
+  margin-top: 30px;
+  box-sizing: border-box;
 }
 
 .service-cards li {
-    list-style: none;
-    gap: 25px;
-    margin-bottom: 60px;
-    padding: 8px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    height: 100px;
-    width: 300px;
-    transition: transform 0.8s ease 0s, filter 0.3s ease;
+  list-style: none;
+  gap: 25px;
+  margin-bottom: 60px;
+  padding: 8px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 100px;
+  width: 300px;
+  transition: transform 0.8s ease 0s, filter 0.3s ease;
 }
 
 .service-cards li:hover {
-    outline: none;
-    transform: scale(1.1);
+  outline: none;
+  transform: scale(1.1);
 }
 
 .service-cards h4 {
-    font-size: 15px;
-    font-weight: 800;
-    margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  margin: 0;
 }
 
 .service-cards p {
-    font-size: 15px;
-    margin-top: 10px;
+  font-size: 15px;
+  margin-top: 10px;
 }
 
 .service-cards2 {
-    display: flex; 
-    color: black;
-    padding: 15px 30px;
-    justify-content: center; 
-    gap: 25px;
-    margin-bottom: 10px;
-    box-sizing: border-box;
+  display: flex;
+  color: black;
+  padding: 15px 30px;
+  justify-content: center;
+  gap: 25px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
 }
 
 .service-cards2 li {
-    list-style: none;
-    gap: 25px;
-    margin-bottom: 60px;
-    padding: 8px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    height: 100px;
-    width: 300px;
-    transition: transform 0.8s ease 0s, filter 0.3s ease;
+  list-style: none;
+  gap: 25px;
+  margin-bottom: 60px;
+  padding: 8px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 100px;
+  width: 300px;
+  transition: transform 0.8s ease 0s, filter 0.3s ease;
 }
 
 .service-cards2 li:hover {
-    outline: none;
-    transform: scale(1.1);
+  outline: none;
+  transform: scale(1.1);
 }
 
 .service-cards2 h4 {
-    font-size: 15px;
-    font-weight: 800;
-    margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  margin: 0;
 }
 
 .service-cards2 p {
-    font-size: 15px;
-    margin-top: 20px;
+  font-size: 15px;
+  margin-top: 20px;
 }
+
 .booking-text {
   padding-top: 15px;
 }
 
 .calendar-container {
-  display:flex;
+  display: flex;
   margin-top: 40px;
   justify-content: center;
 }
@@ -123,8 +128,8 @@
   border-top: 1px solid #9e9e9e;
   border-left: 1px solid #9e9e9e;
   border-right: 1px solid #9e9e9e;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   padding-right: 30px;
   padding-left: 30px;
 }
@@ -148,12 +153,14 @@
   cursor: pointer;
   color: rgba(15, 127, 248, 0.97);
   margin-right: 250px;
+  text-decoration: underline;
 }
 
 .calendar-headline-control-next {
   cursor: pointer;
   color: rgba(15, 127, 248, 0.97);
   margin-left: 250px;
+  text-decoration: underline;
 }
 
 .calendar-weeks-grid {
@@ -175,7 +182,7 @@
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  
+
 }
 
 .calendar-grid-cell {
@@ -185,14 +192,139 @@
 }
 
 .calendar-grid-cell:hover {
-  color: rgba(15, 127, 248, 0.97); 
+  color: rgba(15, 127, 248, 0.97);
 }
 
 .calendar-grid-cell.not-current-month {
-  color: #f9f9f9; 
+  color: #f9f9f9;
 }
 
 .calendar-grid-cell.today {
   color: rgba(2, 88, 180, 0.97);
   font-weight: bold;
+}
+
+.slot-text {
+  padding-top: 15px;
+
+}
+
+.slot-container {
+  display: flex;
+  margin-top: 40px;
+  justify-content: center;
+}
+
+.slot {
+  min-width: 700px;
+  box-sizing: border-box;
+  border-top: 1px solid #9e9e9e;
+  border-bottom: 1px solid #9e9e9e;
+  border-top: 1px solid #9e9e9e;
+  border-left: 1px solid #9e9e9e;
+  border-right: 1px solid #9e9e9e;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 30px;
+  padding-left: 30px;
+}
+
+.slot-headline {
+  display: flex;
+  margin-bottom: 10px;
+  justify-content: center;
+  padding: 0 20px;
+}
+
+.slot-headline-day {
+  font-weight: 600;
+}
+
+.slot-headline-controls {
+  display: flex;
+}
+
+.slot-headline-control-previous {
+  cursor: pointer;
+  color: rgba(15, 127, 248, 0.97);
+  margin-right: 250px;
+  text-decoration: underline;
+}
+
+.slot-headline-control-next {
+  cursor: pointer;
+  color: rgba(15, 127, 248, 0.97);
+  margin-left: 250px;
+  text-decoration: underline;
+}
+
+.slot-time-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.slot-time-item {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 30px;
+  padding-left: 30px;
+  text-align: center;
+  transition: background-color 0.7s ease;
+  min-width: 50px;
+  box-sizing: border-box;
+  border-top: 1px solid #9e9e9e;
+  border-bottom: 1px solid #9e9e9e;
+  border-top: 1px solid #9e9e9e;
+  border-left: 1px solid #9e9e9e;
+  border-right: 1px solid #9e9e9e;
+  border-radius: 10px;
+}
+
+.slot-time-item {
+  background-color: white;
+  cursor: pointer;
+  margin: 5px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  display: inline-block;
+  min-width: 80px;
+  text-align: center;
+  font-size: 16px;
+  transition: background-color 0.5s, border 0.2s;
+}
+
+.slot-time-item.selected {
+  background-color: deepskyblue;
+  border: 1px solid blue;
+}
+
+.slot-time-item.booked {
+  background-color: grey;
+  color: #fff;
+  cursor: not-allowed;
+  border: 1px solid #888;
+  opacity: 0.7;
+}
+
+.go-booking-btn {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.go-booking-btn button {
+  padding: 10px 24px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.go-booking-btn button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
 }

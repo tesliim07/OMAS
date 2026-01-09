@@ -8,19 +8,19 @@ const services = () => {
         {
             title: "General Check-up",
             description: "Routine health assessment and consultation",
-            duration: `Duration: ${30} minutes`,
+            duration: 30,
             path: "/calendarView"
         },
         {
             title: "Dental Cleaning",
             description: "Professional teeth cleaning and oral hygiene",
-            duration: `Duration: ${30} minutes`,
+            duration: 30,
             path: "/calendarView"
         },
         {
             title: "Eye Exam",
             description: "Comprehensive vision testing and eye health check",
-            duration: `Duration: ${45} minutes`,
+            duration: 45,
             path: "/calendarView"
         }
     ];
@@ -29,38 +29,41 @@ const services = () => {
         {
             title: "Vaccination",
             description: "Immunization services for various diseases",
-            duration: `Duration: ${25} minutes`,
+            duration: 25,
             path: "/calendarView"
         },
         {
             title: "Physical Therapy",
             description: "Rehabilitation and pain management sessions",
-            duration: `Duration: ${1} hour`,
+            duration: 60,
             path: "/calendarView"
         },
         {
             title: "Dermatology Consultation",
             description: "Skin condition diagnosis and treatment",
-            duration: `Duration: ${25} minutes`,
+            duration: 25,
             path: "/calendarView"
         }
     ];
 
+    const navigateToTimeSlot = (service) => {
+        navigate(service.path, { state: { duration: service.duration } });
+    };
 
     return (
         <div>
             <NavBar />
-
+            <h2>Service Selection</h2>
             <ul class="service-cards">
                 {serviceList.map((service) => (
                     <li
                         key={service.title}
-                        onClick={() => navigate(service.path)}
+                        onClick={() => navigateToTimeSlot(service)}
                         style={{ cursor: "pointer" }}
                     >
                         <h4>{service.title}</h4>
                         <p>{service.description}</p>
-                        <p>{service.duration}</p>
+                        <p>Duration: {service.duration} minutes</p>
                     </li>
                 ))}
             </ul>
@@ -68,16 +71,15 @@ const services = () => {
                 {serviceList2.map((service) => (
                     <li
                         key={service.title}
-                        onClick={() => navigate(service.path)}
+                        onClick={() => navigateToTimeSlot(service)}
                         style={{ cursor: "pointer" }}
                     >
                         <h4>{service.title}</h4>
                         <p>{service.description}</p>
-                        <p>{service.duration}</p>
+                        <p>Duration: {service.duration} minutes</p>
                     </li>
                 ))}
             </ul>
-
         </div>
     );
 };
