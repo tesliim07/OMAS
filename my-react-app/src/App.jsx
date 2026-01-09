@@ -5,6 +5,7 @@ import Home from './Components/home'
 import Services from './Components/services'
 import CalendarView from './Components/calendarView'
 import TimeSlot from './Components/timeSlot'
+import Booking from './Components/booking'
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
         <Route path="/services" element={<Services />} />
         <Route path="/settings" element={<div>Settings Page</div>} />
         <Route path="/calendarView" element={<CalendarView />} />
-        <Route path="/timeSlot" element={<TimeSlot/>} />
+        <Route path="/timeSlot<" element={<TimeSlot/>} />
+        <Route path="/booking" element={<Booking/>} />
       </Routes>
     </Router>
   );

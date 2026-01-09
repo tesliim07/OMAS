@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import NavBar from './navbar'
-import { Info, DateTime, Interval } from 'luxon'
+import { DateTime } from 'luxon'
 
 const timeSlot = () => {
     const navigate = useNavigate();
