@@ -47,7 +47,7 @@ const services = () => {
     ];
 
     const navigateToTimeSlot = (service) => {
-        navigate(service.path, { state: { duration: service.duration } });
+        navigate(service.path, { state: { duration: service.duration, title: service.title } });
     };
 
     return (

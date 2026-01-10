@@ -3,6 +3,9 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import NavBar from './navbar'
 
 const booking = () => {
+    const location = useLocation();
+    const {selectedDate, title, time} = location.state;
+
     const [formData, setFormData] = useState({
         fullname: "",
         email: "",
@@ -29,7 +32,7 @@ const booking = () => {
         }
         setErrors(newErrors);
         if (Object.keys(newErrors).length === 0) {
-            navigate("/bookingConfirm");
+            navigate("/bookingConfirm", {state: { formData, title, time, selectedDate }});
         }
     }
 

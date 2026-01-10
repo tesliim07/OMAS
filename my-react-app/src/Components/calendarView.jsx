@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import NavBar from './navbar'
 import { Info, DateTime, Interval } from 'luxon'
@@ -11,6 +11,7 @@ const CalendarView = () => {
 
   // Get service data from location.state
   const { duration } = location.state || {};
+  const {title} = location.state;
 
   const [firstDayOfActiveMonth, setFirstDayOfActiveMonth] = useState(
     today.startOf("month")
@@ -36,7 +37,7 @@ const CalendarView = () => {
 
   const handleDateClick = (date) => {
     // receives service data, including the duration, and passes the duration along with the selected date when navigating to timeSlot
-    navigate('/timeSlot', { state: { selectedDate: date.toISODate(), duration } });
+    navigate('/timeSlot', { state: { selectedDate: date.toISODate(), duration, title } });
   };
 
   const renderDayCell = (day) => {

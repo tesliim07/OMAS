@@ -10,6 +10,7 @@ const timeSlot = () => {
     const bookedSlots = ["10:00 AM", "1:30 PM"]; // Placeholder booked times. To be replaced with API
 
     const { duration } = location.state || {};
+    const {selectedDate, title} = location.state;
 
 
     // Provide a default duration if none is passed
@@ -38,8 +39,8 @@ const timeSlot = () => {
             currentTime = currentTime.plus({ minutes: parseInt(effectiveDuration) });
         }
     }
-    
 
+    const selectedDateObj = selectedDate ? DateTime.fromISO(selectedDate) : null;
 
     const [selectedSlot, setSelectedSlot] = useState(null);
 
@@ -56,7 +57,7 @@ const timeSlot = () => {
                                 <p>Previous</p>
                             </div>
                             <div className="slot-headline-day">
-                                {firstDayOfActiveMonth.day} {firstDayOfActiveMonth.monthLong} {firstDayOfActiveMonth.year}
+                                {selectedDateObj ? selectedDateObj.toLocaleString(DateTime.DATE_FULL) : ""}
                             </div>
                             <div className="slot-headline-control-next" onClick={() => goToNextDay()}>
                                 <p>Next</p>
@@ -89,7 +90,7 @@ const timeSlot = () => {
                             disabled={!selectedSlot}
                             onClick={() => {
                                 if (selectedSlot) {
-                                    navigate("/booking", { state: { time: selectedSlot } });
+                                    navigate("/booking", { state: { time: selectedSlot, title, selectedDate} });
                                 }
                             }}
                         >
