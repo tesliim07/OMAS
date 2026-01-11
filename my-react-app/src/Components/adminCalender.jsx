@@ -61,7 +61,7 @@ const AdminCalender = () => {
                     <div>
                         <h1>Admin Dashboard</h1>
                         <span> › </span>
-                        <span>
+                        <span className="service-name">
                             {service?.name}
                         </span>
                     </div>

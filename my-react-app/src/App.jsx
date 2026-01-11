@@ -9,6 +9,7 @@ import TimeSlot from './Components/timeSlot'
 import AdminLogin from './Components/adminLogin'
 import AdminDashboard from './Components/adminDashboard'
 import AdminCalender from './Components/adminCalender'
+import ManageAvailability from './Components/manageAvailability'
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/adminDashboard" element={<AdminDashboard />} />
         <Route path="/calendar-admin/:serviceId" element={<AdminCalender />} />
         <Route path="/timeSlot" element={<TimeSlot/>} />
+        <Route path="/manage-availability/:serviceId" element={<ManageAvailability />} />
       </Routes>
     </Router>
   );
