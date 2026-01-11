@@ -47,7 +47,7 @@ const AdminDashboard = () => {
     
     const handleServiceClick = (service) => {
         // Navigate to availability management for this service
-        navigate(`/manage-availability/${service.id}`, { 
+        navigate(`/calendar-admin/${service.id}`, { 
             state: { service } 
         });
     };

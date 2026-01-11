@@ -339,6 +339,7 @@
   font-size: 25px;
   font-weight: 600;
   color: #333;
+  text-align: left;
 }
 
 .dashboard-content {
@@ -536,6 +537,126 @@
 
 .btn-submit:hover {
   background-color: #0056b3;
+}
+
+.calendar-header {
+  background-color: white;
+  padding: 20px 40px;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: left;
+}
+
+.calendar-header-content {
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.calendar-header h1 {
+  margin: 0 0 8px 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+}
+
+.calendar-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.calendar-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 70px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.current-month {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.btn-nav {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid #007bff;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: white;
+  color: #007bff;
+  transition: all 0.2s ease;
+}
+
+.btn-nav:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 20px;
+}
+
+.day-header {
+  padding: 10px;
+  text-align: center;
+  font-weight: 600;
+  color: #666;
+  font-size: 14px;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.calendar-day.clickable {
+  cursor: pointer;
+}
+
+.calendar-day.clickable:hover {
+  background-color: #e3f2fd;
+  border-color: #007bff;
+}
+
+.calendar-day.other-month {
+  color: #ccc;
+}
+
+.calendar-day.today .day-number {
+  background-color: #007bff;
+  color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar-day.past {
+  background-color: #f5f5f5;
+  color: #999;
+  cursor: not-allowed;
 }
 
 @media (max-width: 768px) {
