@@ -1,45 +1,77 @@
-import React from 'react'
-import { useState } from 'react'
-import NavBar from './navbar'
-import { useNavigate, useLocation } from 'react-router-dom';
+import NavBar from "./navbar";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import { DateTime } from "luxon";
 
-const bookingConfirm = () => {
-    const navigate = useNavigate();
-    const location = useLocation();
+const BookingConfirm = () => {
+  const { appointmentId, serviceName } = useParams();
+  const [appointment, setAppointment] = useState(null);
 
-    const { formData, selectedDate, time, title } = location.state;
-    const {fullname, email, description} = formData;
+  useEffect(() => {
+    const fetchAppointment = async () => {
+      try {
+        const response = await axios.get(
+          `https://localhost:7014/api/Appointment/getAppointmentById/${appointmentId}`
+        );
+        if (response.status === 200) {
+          setAppointment(response.data);
+          console.log("Appointment fetched:", response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching appointment:", error);
+      }
+    };
+    fetchAppointment();
+  }, []);
 
-    return (
-        <div>
-            {/* Needs styling */}
-            <NavBar />
-            <h2>Booking Confirmed!</h2>
-            <div class="confirmation-container">
-                <div>
-                    <p>Service: {title}</p>
-                </div>
-                <div>
-                    <p>Date: {selectedDate}</p>
-                </div>
-                <div>
-                    <p>Time: {time}</p>
-                </div>
-                <div>
-                    <p>Patient Name: {fullname}</p>
-                </div>
-                <div>
-                    <p>Email: {email}</p>
-                </div>
-                <div>
-                    <p>Description: {description}</p>
-                </div>
-                <div>
-                    <p>A confirmation email with all the details has been sent to your email.</p>
-                </div>
+  return (
+    <div>
+      {/* Needs styling */}
+      <NavBar />
+      <h2>Booking Confirmed!</h2>
+      <div class="confirmation-container">
+        {appointment && (
+          <>
+            <div>
+              <p>Service Name: {serviceName}</p>
             </div>
-        </div>
-    )
-}
+            <div>
+              <p>
+                Date:{" "}
+                {DateTime.fromISO(appointment.appointmentDateTime).toFormat(
+                  "dd-MM-yyyy"
+                )}
+              </p>
+            </div>
+            <div>
+              <p>
+                Time:{" "}
+                {DateTime.fromISO(appointment.appointmentDateTime).toFormat(
+                  "HH:mm"
+                )}
+              </p>
+            </div>
+            <div>
+              <p>
+                Patient Name: {appointment.patientFirstName}{" "}
+                {appointment.patientLastName}
+              </p>
+            </div>
+            {appointment.patientEmail && (
+              <div>
+                <p>Email: {appointment.patientEmail}</p>{" "}
+                <p>
+                  A confirmation email with all the details has been sent to
+                  your email.
+                </p>
+              </div>
+            )}
+          </>
+        )}
+      </div>
+    </div>
+  );
+};
 
-export default bookingConfirm
+export default BookingConfirm;

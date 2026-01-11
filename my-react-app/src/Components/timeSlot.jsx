@@ -1,106 +1,96 @@
-import { useState } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
-import NavBar from './navbar'
-import { DateTime } from 'luxon'
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import NavBar from "./navbar";
+import { DateTime } from "luxon";
+import axios from "axios";
 
-const timeSlot = () => {
-    const navigate = useNavigate();
-    const location = useLocation();
-    const today = DateTime.local();
-    const bookedSlots = ["10:00 AM", "1:30 PM"]; // Placeholder booked times. To be replaced with API
+const TimeSlot = () => {
+  const navigate = useNavigate();
 
-    const { duration } = location.state || {};
-    const {selectedDate, title} = location.state;
+  const { serviceName, selectedDate } = useParams();
+  const selectedDateTime = DateTime.fromISO(selectedDate)
+    .startOf("day")
+    .toUTC()
+    .toISO({ suppressMilliseconds: true });
+  const [timeSlots, setTimeSlots] = useState([]);
+  const [timeSlotId, setTimeSlotId] = useState(null);
 
-
-    // Provide a default duration if none is passed
-    const effectiveDuration = duration || 30; // Default to 30 minutes
-
-    const [firstDayOfActiveMonth, setFirstDayOfActiveMonth] = useState(
-        today.startOf("month")
-    );
-
-    const goToPreviousDay = () => {
-        setFirstDayOfActiveMonth(firstDayOfActiveMonth.minus({ day: 1 }))
-    };
-
-    const goToNextDay = () => {
-        setFirstDayOfActiveMonth(firstDayOfActiveMonth.plus({ day: 1 }))
-    };
-
-    const timeSlots = [];
-    if (effectiveDuration) {
-        const startTime = DateTime.local().set({ hour: 9, minute: 0 });
-        const endTime = DateTime.local().set({ hour: 17, minute: 0 });
-        let currentTime = startTime;
-
-        while (currentTime < endTime) {
-            timeSlots.push(currentTime.toFormat("h:mm a"));
-            currentTime = currentTime.plus({ minutes: parseInt(effectiveDuration) });
+  useEffect(() => {
+    const fetchTimeSlots = async () => {
+      try {
+        const response = await axios.get(
+          `https://localhost:7014/api/AvailabilitySlot/getAllAvailabilitySlotsByDateAndServiceName/${selectedDateTime}/${serviceName}`
+        );
+        if (response.status === 200) {
+          setTimeSlots(response.data);
+          console.log("Time slots fetched:", response.data);
         }
-    }
+      } catch (error) {
+        console.error("Error fetching time slots:", error);
+      }
+    };
+    fetchTimeSlots();
+  }, []);
 
-    const selectedDateObj = selectedDate ? DateTime.fromISO(selectedDate) : null;
-
-    const [selectedSlot, setSelectedSlot] = useState(null);
-
-    return (
-        <div>
-            <NavBar />
-            <h2>Time Slot Selection - Daily View</h2>
-            <p className="slot-text">Select a Time Slot for Selected Date</p>
-            <div className="slot-container">
-                <div className="slot">
-                    <div className="slot-headline">
-                        <div className="slot-headline-controls">
-                            <div className="slot-headline-control-previous" onClick={() => goToPreviousDay()}>
-                                <p>Previous</p>
-                            </div>
-                            <div className="slot-headline-day">
-                                {selectedDateObj ? selectedDateObj.toLocaleString(DateTime.DATE_FULL) : ""}
-                            </div>
-                            <div className="slot-headline-control-next" onClick={() => goToNextDay()}>
-                                <p>Next</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="slot-time-grid">
-                        {timeSlots.map((time, index) => {
-                            const isBooked = bookedSlots.includes(time);
-                            let slotClass = "slot-time-item";
-                            if (isBooked) slotClass += " booked";
-                            if (selectedSlot === time) slotClass += " selected";
-                            return (
-                                <div
-                                    key={index}
-                                    className={slotClass}
-                                    onClick={() => {
-                                        if (!isBooked) {
-                                            setSelectedSlot(time);
-                                        }
-                                    }}
-                                >
-                                    {time}
-                                </div>
-                            )
-                        })}
-                    </div>
-                    <div className="go-booking-btn">
-                        <button
-                            disabled={!selectedSlot}
-                            onClick={() => {
-                                if (selectedSlot) {
-                                    navigate("/booking", { state: { time: selectedSlot, title, selectedDate} });
-                                }
-                            }}
-                        >
-                            Go to Booking Page
-                        </button>
-                    </div>
-                </div>
+  return (
+    <div>
+      <NavBar />
+      <h2>Time Slot Selection - Daily View</h2>
+      <p className="slot-text">Select a Time Slot for Selected Date</p>
+      <div className="slot-container">
+        <div className="slot">
+          <div className="slot-headline">
+            <div className="slot-headline-controls">
+              <div className="slot-headline-day"> {selectedDate}</div>
             </div>
-        </div>
-    )
-}
+          </div>
+          <div className="slot-time-grid">
+            {timeSlots.map((timeSlot) => {
+              const isSelected = timeSlotId === timeSlot.availabilitySlotId;
+              return (
+                <div
+                  key={timeSlot.availabilitySlotId}
+                  className={[
+                    "slot-time-item",
+                    timeSlot.isBooked && "booked",
+                    isSelected && "selected",
+                  ]
+                    .filter(Boolean)
+                    .join(" ")}
+                  onClick={() => {
+                    if (!timeSlot.isBooked) {
+                      setTimeSlotId(timeSlot.availabilitySlotId);
+                    }
+                  }}
+                  style={{
+                    cursor: timeSlot.isBooked ? "not-allowed" : "pointer",
+                  }}
+                >
+                  {DateTime.fromISO(timeSlot.slotStartTime).toFormat("HH:mm")}
+                </div>
+              );
+            })}
+          </div>
+          {!timeSlots.length && (
+            <div>
+              <h2>No available time slots for this date for this service.</h2>
+            </div>
+          )}
 
-export default timeSlot
+          <div className="go-booking-btn">
+            <button
+              disabled={!timeSlotId}
+              onClick={() => {
+                navigate(`/booking/${serviceName}/${timeSlotId}`);
+              }}
+            >
+              Go to Booking Page
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default TimeSlot;

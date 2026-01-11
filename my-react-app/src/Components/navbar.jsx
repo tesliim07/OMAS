@@ -6,7 +6,7 @@ const navbar = () => {
     const navList = [
         {text: "Home", path: "/home"},
         {text: "Services", path: "/services"},
-        {text: "Settings", path: "/settings"}
+        // {text: "Settings", path: "/settings"}
     ];
 
     return (

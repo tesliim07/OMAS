@@ -16,7 +16,7 @@ const AdminLogin = () => {
             return;
         }
 
-        if(email && password) {
+        if(email === 'admin@gmail.com' && password === 'admin123') {
             navigate('/adminDashboard');
         } else {
             setError('Invalid credentials');

@@ -1,21 +1,14 @@
-import { useState } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import NavBar from './navbar'
 import { Info, DateTime, Interval } from 'luxon'
 
 
 const CalendarView = () => {
   const navigate = useNavigate();
-  const location = useLocation();
   const today = DateTime.local();
+  const { serviceName } = useParams();
 
-  // Get service data from location.state
-  const { duration } = location.state || {};
-  const {title} = location.state;
-
-  const [firstDayOfActiveMonth, setFirstDayOfActiveMonth] = useState(
-    today.startOf("month")
-  );
+  let firstDayOfActiveMonth = today.startOf("month");
 
   const weekDays = Info.weekdays("short");
 
@@ -26,18 +19,12 @@ const CalendarView = () => {
     .splitBy({ day: 1 })
     .map((day) => day.start);
 
-  const goToPreviousMonth = () => {
-    setFirstDayOfActiveMonth(firstDayOfActiveMonth.minus({ month: 1 }))
-  };
-
-  const goToNextMonth = () => {
-    setFirstDayOfActiveMonth(firstDayOfActiveMonth.plus({ month: 1 }))
-  };
-
 
   const handleDateClick = (date) => {
+    console.log("Selected date:", date);
+    console.log("Selected date in ISO:", date.toISODate());
     // receives service data, including the duration, and passes the duration along with the selected date when navigating to timeSlot
-    navigate('/timeSlot', { state: { selectedDate: date.toISODate(), duration, title } });
+    navigate(`/timeSlot/${serviceName}/${date.toISODate()}`);
   };
 
   const renderDayCell = (day) => {
@@ -68,14 +55,8 @@ const CalendarView = () => {
         <div class="calendar">
           <div class="calendar-headline">
             <div class="calendar-headline-controls">
-              <div class="calendar-headline-control-previous" onClick={() => goToPreviousMonth()}>
-                <p>Previous</p>
-              </div>
               <div class="calendar-headline-month">
                 {firstDayOfActiveMonth.monthLong} {firstDayOfActiveMonth.year}
-              </div>
-              <div class="calendar-headline-control-next" onClick={() => goToNextMonth()}>
-                <p>Next</p>
               </div>
             </div>
           </div>
