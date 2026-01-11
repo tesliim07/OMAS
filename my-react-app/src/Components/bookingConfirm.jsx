@@ -1,5 +1,3 @@
-import React from 'react'
-import { useState } from 'react'
 import NavBar from './navbar'
 import { useNavigate, useLocation } from 'react-router-dom';
 
