@@ -30,7 +30,7 @@ const TimeSlot = () => {
       }
     };
     fetchTimeSlots();
-  }, []);
+  }, [selectedDateTime, serviceName]);
 
   return (
     <div>

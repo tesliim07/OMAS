@@ -22,15 +22,28 @@ const BookingConfirm = () => {
         console.error("Error fetching appointment:", error);
       }
     };
+    const fetchIsSentAppointmentConfirmation = async () => {
+      try {
+        const response = await axios.get(
+          `https://localhost:7014/api/Appointment/sendAppointmentConfirmation/${appointmentId}`
+        );
+        if (response.status === 200) {
+          console.log("Appointment Email Sent:", response.data);
+        }
+      } catch (error) {
+        console.error("Error sending appointment email confirmation:", error);
+      }
+    };
     fetchAppointment();
-  }, []);
+    fetchIsSentAppointmentConfirmation();
+  }, [appointmentId]);
 
   return (
     <div>
       {/* Needs styling */}
       <NavBar />
       <h2>Booking Confirmed!</h2>
-      <div class="confirmation-container">
+      <div className="confirmation-container">
         {appointment && (
           <>
             <div>
