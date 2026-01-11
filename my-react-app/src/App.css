@@ -343,6 +343,7 @@
   font-size: 25px;
   font-weight: 600;
   color: #333;
+  text-align: left;
 }
 
 .dashboard-content {
@@ -375,6 +376,7 @@
   font-size: 14px;
   color: #666;
   margin: 0;
+  text-align: left;
 }
 
 .btn-create-service {
@@ -542,76 +544,219 @@
   background-color: #0056b3;
 }
 
+.calendar-header {
+  background-color: white;
+  padding: 20px 40px;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: left;
+}
+
+.calendar-header-content {
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.calendar-header h1 {
+  margin: 0 0 8px 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+}
+
+.calendar-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.calendar-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 70px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.current-month {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.btn-nav {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid #007bff;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: white;
+  color: #007bff;
+  transition: all 0.2s ease;
+}
+
+.btn-nav:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 20px;
+}
+
+.day-header {
+  padding: 10px;
+  text-align: center;
+  font-weight: 600;
+  color: #666;
+  font-size: 14px;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.calendar-day.clickable {
+  cursor: pointer;
+}
+
+.calendar-day.clickable:hover {
+  background-color: #e3f2fd;
+  border-color: #007bff;
+}
+
+.calendar-day.other-month {
+  color: #ccc;
+}
+
+.calendar-day.today .day-number {
+  background-color: #007bff;
+  color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar-day.past {
+  background-color: #f5f5f5;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.service-name {
+  font-size: 14px;
+  color: grey;
+}
+
+.availability-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-add-slot {
+  padding: 12px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #28a745;
+  color: white;
+  transition: background-color 0.2s ease;
+}
+
+.btn-add-slot:hover {
+  background-color: #218838;
+}
+
+.time-slot {
+  padding: 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: white;
+}
+
+.time-slot.available {
+  border-color: #28a745;
+  background-color: #f8fff9;
+}
+
+.time-slot.unavailable {
+  border-color: #dc3545;
+  background-color: #fff5f5;
+}
+
+.time-slot-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.time-slot-time {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.time-slot-status {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-available {
+  background-color: #28a745;
+  color: white;
+}
+
+.status-unavailable {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-delete-slot {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #dc3545;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: white;
+  transition: all 0.2s ease;
+}
+
+.btn-delete-slot:hover {
+  background-color: #dc3545;
+}
+
 @media (max-width: 768px) {
       
   .section-header {
     flex-direction: column;
     gap: 20px;
   }
-}
-
-
-/* Time slot page */
-.slot-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 30px;
-}
-
-.slot {
-  width: 700px;
-  background: white;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 20px;
-}
-
-.slot-headline-controls {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  margin-bottom: 15px;
-}
-
-.slot-headline-day {
-  font-weight: 600;
-}
-
-/* Grid of slots */
-.slot-time-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 12px;
-  margin-top: 10px;
-}
-
-/* Individual slot */
-.slot-time-item {
-  padding: 12px;
-  text-align: center;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  cursor: pointer;
-  background: white;
-  transition: all 0.2s ease;
-  user-select: none;
-}
-
-.slot-time-item:hover {
-  border-color: #007bff;
-}
-
-/* Selected slot */
-.slot-time-item.selected {
-  border-color: #007bff;
-  background: #eaf3ff;
-  font-weight: 600;
-}
-
-/* Booked slot */
-.slot-time-item.booked {
-  opacity: 0.5;
-  cursor: not-allowed;
-  background: #f2f2f2;
-  border-color: #ccc;
 }
