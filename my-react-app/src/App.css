@@ -186,6 +186,7 @@
 }
 
 .calendar-grid-cell {
+  color: inherit;
   padding: 7px;
   text-align: center;
   transition: background-color 0.7s ease;
@@ -195,8 +196,9 @@
   color: rgba(15, 127, 248, 0.97);
 }
 
-.calendar-grid-cell.not-current-month {
-  color: #f9f9f9;
+.calendar-grid-cell.not-current-month, 
+.calendar-grid-cell.previous-day {
+  color: gray;
 }
 
 .calendar-grid-cell.today {
@@ -309,12 +311,12 @@
 }
 
 .go-booking-btn {
-  margin-top: 20px;
+  margin-top: 12px;
   text-align: center;
 }
 
 .go-booking-btn button {
-  padding: 1px 24px;
+  padding: 8px 24px;
   font-size: 16px;
   background-color: #007bff;
   color: #fff;
@@ -329,19 +331,6 @@
   cursor: not-allowed;
 }
 
-.booking-info {
-  min-width: 700px;
-  box-sizing: border-box;
-  border-top: 1px solid #9e9e9e;
-  border-bottom: 1px solid #9e9e9e;
-  border-top: 1px solid #9e9e9e;
-  border-left: 1px solid #9e9e9e;
-  border-right: 1px solid #9e9e9e;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-right: 30px;
-  padding-left: 30px;
-}
 
 .booking-info input {
   display: flex;
@@ -359,6 +348,20 @@
   background: #fff;
   display: flex;
   flex-direction: column;
+}
+
+.booking-info {
+  min-width: 700px;
+  box-sizing: border-box;
+  border-top: 1px solid #9e9e9e;
+  border-bottom: 1px solid #9e9e9e;
+  border-top: 1px solid #9e9e9e;
+  border-left: 1px solid #9e9e9e;
+  border-right: 1px solid #9e9e9e;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 30px;
+  padding-left: 30px;
 }
 
 .booking-form-group {
@@ -419,4 +422,58 @@
   margin-top: 4px;
   text-align: center;
   display: block;
+}
+
+.confirmation-container {
+  min-width: 350px;
+  max-width: 400px;
+  margin: 10px auto 0 auto;
+  box-sizing: border-box;
+  border: 1px solid #9e9e9e;
+  border-radius: 10px;
+  padding: 15px 15px 10px 10px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.confirmation-container h2 {
+  color: rgb(51, 178, 51);
+}
+
+.confirmation-container .service-title {
+  margin-left: 216px;
+  margin-right: 0px;
+  padding-bottom: 10px;
+}
+
+.confirmation-container p{
+  padding-top: 20px;
+  padding-bottom: 10px;
+
+}
+
+.confirmation-container .date {
+  margin-left: 260px;
+  margin-right: 0px;
+}
+
+.confirmation-container .time {
+  margin-left: 280px;
+  margin-right: 0px;
+}
+
+.confirmation-container .name {
+  margin-left: 190px;
+  margin-right: 0px;
+}
+
+.confirmation-container .email {
+  margin-left: 180px;
+  margin-right: 0px;
+}
+
+.confirmation-container h3 {
+  margin-right: 300px;
+  padding-top: 10px;
 }

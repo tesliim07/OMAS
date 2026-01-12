@@ -10,27 +10,36 @@ const bookingConfirm = () => {
 
     return (
         <div>
-            {/* Needs styling */}
             <NavBar />
-            <h2>Booking Confirmed!</h2>
             <div class="confirmation-container">
+                <h2>Booking Confirmed!</h2>
+                <p class="confirm-text">Your appointment has been successfully booked.</p>
+
+                <h3>Booking</h3>
                 <div>
-                    <p>Service: {title}</p>
+                    <p>Service: 
+                        <span class="service-title">{title} </span>
+                    </p>
                 </div>
                 <div>
-                    <p>Date: {selectedDate}</p>
+                    <p>Date: 
+                        <span class="date">{selectedDate} </span>
+                        </p>
                 </div>
                 <div>
-                    <p>Time: {time}</p>
+                    <p>Time: 
+                        <span class="time">{time} </span>
+                        </p>
                 </div>
                 <div>
-                    <p>Patient Name: {fullname}</p>
+                    <p>Patient Name: 
+                        <span class="name">{fullname} </span>
+                        </p>
                 </div>
                 <div>
-                    <p>Email: {email}</p>
-                </div>
-                <div>
-                    <p>Description: {description}</p>
+                    <p>Email: 
+                        <span class="email">{email} </span>
+                        </p>
                 </div>
                 <div>
                     <p>A confirmation email with all the details has been sent to your email.</p>
