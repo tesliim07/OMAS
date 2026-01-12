@@ -40,15 +40,20 @@ const BookingConfirm = () => {
 
   return (
     <div>
-      {/* Needs styling */}
       <NavBar />
-      <h2>Booking Confirmed!</h2>
+
       <div className="confirmation-container">
+        <h2>Booking Confirmed!</h2>
+        <p className="confirm-text">
+          Your appointment has been successfully booked.
+        </p>
+
         {appointment && (
           <>
             <div>
-              <p>Service Name: {serviceName}</p>
+              <p>Service: {serviceName}</p>
             </div>
+
             <div>
               <p>
                 Date:{" "}
@@ -57,6 +62,7 @@ const BookingConfirm = () => {
                 )}
               </p>
             </div>
+
             <div>
               <p>
                 Time:{" "}
@@ -65,15 +71,18 @@ const BookingConfirm = () => {
                 )}
               </p>
             </div>
+
             <div>
               <p>
                 Patient Name: {appointment.patientFirstName}{" "}
                 {appointment.patientLastName}
               </p>
             </div>
+
             {appointment.patientEmail && (
               <div>
-                <p>Email: {appointment.patientEmail}</p>{" "}
+                {/* <p>Email: <span className="email">{appointment.patientEmail}</span></p> */}
+                <p>Email: {appointment.patientEmail}</p>
                 <p>
                   A confirmation email with all the details has been sent to
                   your email.

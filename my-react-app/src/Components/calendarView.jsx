@@ -30,13 +30,18 @@ const CalendarView = () => {
   const renderDayCell = (day) => {
     const isToday = day.hasSame(today, 'day');
     const isCurrentMonth = day.hasSame(firstDayOfActiveMonth, 'month');
+    const isPreviousDay = day.startOf('day') < today.startOf('day');
+
+    const isClickable = isCurrentMonth && !isPreviousDay;
+    
 
     return (
       <div
-        class={`calendar-grid-cell ${isToday ? 'today' : ''} ${isCurrentMonth ? '' : 'not-current-month'}`}
+        class={`calendar-grid-cell ${isToday ? 'today' : ''} 
+        ${isCurrentMonth ? '' : 'not-current-month'} 
+        ${isPreviousDay ? 'previous-day': ''}`}
         style={{
-          cursor: isCurrentMonth ? 'pointer' : 'default',
-          color: isCurrentMonth ? 'inherit' : 'gray',
+          cursor: isClickable ? 'pointer' : 'default'
         }}
       >
         {day.day}
@@ -70,12 +75,13 @@ const CalendarView = () => {
           <div class="calendar-grid">
             {daysOfMonth.map((day, dayIndex) => {
               const isCurrentMonth = day.hasSame(firstDayOfActiveMonth, 'month');
+              const isPreviousDay = day.startOf('day') < today.startOf('day');
               return (
                 <div
                   key={dayIndex}
                   className="calendar-grid-cell"
-                  onClick={isCurrentMonth ? () => handleDateClick(day) : null}
-                  style={{ cursor: isCurrentMonth ? "pointer" : "default" }}
+                  onClick={isCurrentMonth && !isPreviousDay ? () => handleDateClick(day) : null}
+                  style={{ cursor: isCurrentMonth && !isPreviousDay ? "pointer" : "default" }}
                 >
                   {renderDayCell(day)}
                 </div>
