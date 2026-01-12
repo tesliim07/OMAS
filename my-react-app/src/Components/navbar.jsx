@@ -1,6 +1,6 @@
 import {useNavigate} from 'react-router-dom'
 
-const navbar = () => {
+const Navbar = () => {
     const navigate = useNavigate();
 
     const navList = [
@@ -28,4 +28,4 @@ const navbar = () => {
 };
 
 
-export default navbar
+export default Navbar;

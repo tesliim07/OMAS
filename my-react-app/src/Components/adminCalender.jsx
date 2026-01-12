@@ -1,14 +1,11 @@
-import { useState } from 'react'
-import {useNavigate, useLocation} from 'react-router-dom'
-
+import {useNavigate, useParams} from 'react-router-dom'
 import { DateTime } from 'luxon'
+import NavBar from './navbar'
 
 const AdminCalender = () => {
     const navigate = useNavigate();
-    const location = useLocation();
-    const service = location.state?.service;
-
-    const [currentDate, setcurrentDate] = useState(DateTime.now());
+    const {serviceId, serviceName} = useParams();
+    const currentDate = DateTime.now();
 
     const startOfMonth = currentDate.startOf('month');
     const endOfMonth = currentDate.endOf('month');
@@ -23,21 +20,7 @@ const AdminCalender = () => {
     };
 
     const handleDateClick = (selectedDate) => {
-        navigate(`/manage-availability/${service.id}`, {
-            state: {
-                service: service,
-                selectedDate: selectedDate.toISODate()
-
-            }
-        });
-    };
-
-    const goToPreviousMonth = () => {
-        setcurrentDate(currentDate.minus({ months: 1 }))
-    };
-
-    const goToNextMonth = () => {
-        setcurrentDate(currentDate.plus({ months: 1 }))
+        navigate(`/manage-availability/${serviceId}/${serviceName}/${selectedDate.toISODate()}`);
     };
 
     const isCurrentMonth = (date) => {
@@ -56,14 +39,11 @@ const AdminCalender = () => {
 
     return (
         <div>
+            <NavBar />
             <div className="calendar-header">
                 <div className="calendar-header-content">
                     <div>
                         <h1>Admin Dashboard</h1>
-                        <span> › </span>
-                        <span className="service-name">
-                            {service?.name}
-                        </span>
                     </div>
                    
                 </div>
@@ -72,21 +52,9 @@ const AdminCalender = () => {
             <div className="calendar-container">
                 <div className="calendar-card">
                     <div className="calendar-nav">
-                        <button 
-                            className="btn-nav"
-                            onClick={goToPreviousMonth}
-                        >
-                            ← Previous
-                        </button>
                         <h2 className="current-month">
                             {currentDate.toFormat('MMMM yyyy')}
                         </h2>
-                        <button 
-                            className="btn-nav"
-                            onClick={goToNextMonth}
-                        >
-                            Next →
-                        </button>
                     </div>
                     <div className="calendar-grid">
                         <div className="day-header">Mon</div>

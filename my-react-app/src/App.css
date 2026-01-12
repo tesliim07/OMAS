@@ -760,3 +760,68 @@
     gap: 20px;
   }
 }
+
+
+.slot-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.slot {
+  width: 700px;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.slot-headline-controls {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 15px;
+}
+
+.slot-headline-day {
+  font-weight: 600;
+}
+
+/* Grid of slots */
+.slot-time-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+  margin-top: 10px;
+}
+
+/* Individual slot */
+.slot-time-item {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+  background: white;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.slot-time-item:hover {
+  border-color: #007bff;
+}
+
+/* Selected slot */
+.slot-time-item.selected {
+  border-color: #007bff;
+  background: #eaf3ff;
+  font-weight: 600;
+}
+
+/* Booked slot */
+.slot-time-item.booked {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #f2f2f2;
+  border-color: #ccc;
+}

@@ -1,88 +1,83 @@
-import { useState } from 'react';
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from "axios";
+import { DateTime } from "luxon";
+import NavBar from './navbar'
 
 const ManageAvailability = () => {
-    const navigate = useNavigate();
-    const location = useLocation();
-    const { serviceId } = useParams();
-    
-    const service = location.state?.service;
-    const selectedDate = location.state?.selectedDate;
-
-    //Replace with API data 
-    const [timeSlots, setTimeSlots] = useState([
-        { id: 1, time: '09:00 AM', available: true },
-        { id: 2, time: '09:30 AM', available: true },
-        { id: 3, time: '10:00 AM', available: false },
-        { id: 4, time: '10:30 AM', available: true },
-        { id: 5, time: '11:00 AM', available: true },
-        { id: 6, time: '11:30 AM', available: false }
-    ]);
-
-    
+    const { serviceId, serviceName, selectedDate } = useParams();
+    const [availabilitySlots, setAvailabilitySlots] = useState([]);
+    const [isDeleted, setIsDeleted] = useState(false);
     const [showAddSlotModal, setShowAddSlotModal] = useState(false);
-    const [newSlotTime, setNewSlotTime] = useState('09:00');
+    const [startTime, setStartTime] = useState();
+    const [endTime, setEndTime] = useState();
 
-    const handleToggleSlot = (slotId) => {
-        setTimeSlots(timeSlots.map(slot => 
-            slot.id === slotId 
-                ? { ...slot, available: !slot.available }
-                : slot
-        ));
+    const selectedUtcDate = `${selectedDate}T00:00:00.000Z`;
+
+    useEffect(() => {
+    const fetchAvailabilitySlots = async () => {
+      try {
+        const response = await axios.get(
+          `https://localhost:7014/api/AvailabilitySlot/getAllAvailabilitySlotsByDateAndServiceName/${selectedUtcDate}/${serviceName}`
+        );
+        if (response.status === 200) {
+          setAvailabilitySlots(response.data);
+          console.log("Availability slots fetched:", response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching availability slots:", error);
+      }
+    };
+    fetchAvailabilitySlots();
+  }, [isDeleted]);
+
+  const deleteTimeSlot = async (slotId) => {
+        try {
+            const response = await axios.delete(
+                `https://localhost:7014/api/AvailabilitySlot/deleteAvailabilitySlot/${slotId}`
+            );
+            if (response.status === 200) {
+                console.log("Service deleted:", response.data);
+                setIsDeleted(true);
+            }
+        } catch (error) {
+            console.error("Error deleting service:", error);
+        }
     };
 
     const handleDeleteSlot = (slotId) => {
         if (window.confirm('Are you sure you want to delete this time slot?')) {
-            setTimeSlots(timeSlots.filter(slot => slot.id !== slotId));
+            deleteTimeSlot(slotId);
+            alert('Time slot deleted successfully!');
+            setIsDeleted(false);
         }
     };
 
-    const handleAddSlot = (e) => {
+    const handleAddSlot = async (e) => {
         e.preventDefault();
         
-        if (!newSlotTime) {
-            alert('Please select a time');
+        if (!startTime || !endTime) {
+            alert('Please select start and end times');
             return;
         }
 
-        
-        const [hours, minutes] = newSlotTime.split(':').map(Number);
-        const period = hours >= 12 ? 'PM' : 'AM';
-        const displayHour = hours > 12 ? hours - 12 : hours === 0 ? 12 : hours;
-        const formattedTime = `${displayHour.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')} ${period}`;
+        const startUtcTime = `${selectedDate}T${startTime}:00Z`;
+        const endUtcTime = `${selectedDate}T${endTime}:00Z`;
 
-        // Check for duplicates
-        const exists = timeSlots.some(slot => slot.time === formattedTime);
-        if (exists) {
-            alert('This time slot already exists!');
-            return;
+        console.log('Creating availability slot with data:', startUtcTime, endUtcTime);
+
+        try {
+            const response = await axios.post(
+                `https://localhost:7014/api/AvailabilitySlot/createAvailabilitySlots/${serviceId}/${startUtcTime}/${endUtcTime}`,
+            );
+            if (response.status === 200) {
+                console.log("Availability slots created:", response.data);
+                window.location.reload();
+            }
+        } catch (error) {
+            console.error("Error creating availability slots:", error);
         }
-
-        const newSlot = {
-            id: Date.now(),
-            time: formattedTime, 
-            available: true
-        };
-
-        const updatedSlots = [...timeSlots, newSlot].sort((a, b) => {
-            return convertTo24Hour(a.time) - convertTo24Hour(b.time);
-        });
-
-        setTimeSlots(updatedSlots);
         setShowAddSlotModal(false);
-        setNewSlotTime('09:00');
-    };
-
-    const convertTo24Hour = (time12) => {
-        const [time, period] = time12.split(' ');
-        let [hours, minutes] = time.split(':').map(Number);
-        
-        if (period === 'PM' && hours !== 12) {
-            hours += 12;
-        } else if (period === 'AM' && hours === 12) {
-            hours = 0;
-        }
-        return hours * 60 + minutes;
     };
 
     const formatDate = (dateString) => {
@@ -97,13 +92,14 @@ const ManageAvailability = () => {
 
     return (
         <div className="manage-availability">
+            <NavBar />
             <div className="calendar-header">
                 <div className="calendar-header-content">
                     <div>
                         <h1>Admin Dashboard</h1>
                         <span> › </span>
                         <span className="service-name">
-                            {service?.name}
+                            {serviceName}
                         </span>
                         <span> › </span>
                         <span>
@@ -131,21 +127,22 @@ const ManageAvailability = () => {
                         </button>
                     </div>
                     <div className="services-grid">
-                        {timeSlots.map((slot) => (
+                        {availabilitySlots.map((slot) => (
                             <div 
-                                key={slot.id} 
-                                className={`time-slot ${slot.available ? 'available' : 'unavailable'}`}
+                                key={slot.availabilitySlotId} 
+                                className={`time-slot ${!slot.isBooked ? 'available' : 'unavailable'}`}
                             >
                                 <div className="time-slot-content">
-                                    <span className="time-slot-time">{slot.time}</span>
-                                    <span className={`time-slot-status ${slot.available ? 'status-available' : 'status-unavailable'}`}>
-                                        {slot.available ? 'Available' : 'Booked'}
+                                    <span className="time-slot-time">{DateTime.fromISO(slot.slotStartTime).toFormat("HH:mm")}</span>
+                                    <span className={`time-slot-status ${!slot.isBooked ? 'status-available' : 'status-unavailable'}`}>
+                                        {!slot.isBooked ? 'Available' : 'Booked'}
                                     </span>
                                 </div>
                                 <div>                                    
                                     <button 
                                         className="btn-delete-slot"
-                                        onClick={() => handleDeleteSlot(slot.id)}
+                                        disabled={slot.isBooked}
+                                        onClick={() => handleDeleteSlot(slot.availabilitySlotId)}
                                         title="Delete time slot"
                                     >
                                         Delete
@@ -155,7 +152,7 @@ const ManageAvailability = () => {
                         ))}
                     </div>
 
-                    {timeSlots.length === 0 && (
+                    {availabilitySlots.length === 0 && (
                         <div>
                             <p>No time slots available for this date.</p>
                             <p>Click "Add Time Slot" to create one.</p>
@@ -171,12 +168,22 @@ const ManageAvailability = () => {
                         
                         <form onSubmit={handleAddSlot}>
                             <div className="form-group">
-                                <label htmlFor="slotTime">Select Time</label>
+                                <label htmlFor="slotTime">Select Start Time</label>
                                 <input
                                     type="time"
                                     id="slotTime"
-                                    value={newSlotTime}
-                                    onChange={(e) => setNewSlotTime(e.target.value)}
+                                    value={startTime}
+                                    onChange={(e) => setStartTime(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="slotTime">Select End Time</label>
+                                <input
+                                    type="time"
+                                    id="slotTime"
+                                    value={endTime}
+                                    onChange={(e) => setEndTime(e.target.value)}
                                     required
                                 />
                             </div>

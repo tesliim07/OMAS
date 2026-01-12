@@ -1,70 +1,62 @@
-import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import axios from "axios";
+import NavBar from './navbar'
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
+    const [services, setServices] = useState([]);
+    const [isDeleted, setIsDeleted] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [newServiceName, setNewServiceName] = useState('');
+    const [newServiceDescription, setNewServiceDescription] = useState('');
+    const [newServiceDuration, setNewServiceDuration] = useState('30');
 
-    // Sample service data (will be replaced with backend functionality later
-    const [services, setServices] = useState([
-        {
-            id: 1,
-            name: 'General Check-up',
-            description: 'Routine health assessment and consultation',
-            duration: 30
-        },
-        {
-            id: 2,
-            name: 'Dental Cleaning',
-            description: 'Professional teeth cleaning and oral hygiene',
-            duration: 45
-        },
-        {
-            id: 3,
-            name: 'Eye Exam',
-            description: 'Comprehensive vision testing and eye health check',
-            duration: 30
-        },
-        {
-            id: 4,
-            name: 'Vaccination',
-            description: 'Immunization services for various diseases',
-            duration: 15
-        },
-        {
-            id: 5,
-            name: 'Physical Therapy',
-            description: 'Rehabilitation and pain management sessions',
-            duration: 60
-        },
-        {
-            id: 6,
-            name: 'Dermatology Consultation',
-            description: 'Skin condition diagnosis and treatment',
-            duration: 45
+    useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await axios.get(
+          "https://localhost:7014/api/Service/getAllServices"
+        );
+        if (response.status === 200) {
+          setServices(response.data);
+          console.log("Services fetched:", response.data);
         }
-    ]);
+      } catch (error) {
+        console.error("Error fetching services:", error);
+      }
+    };
+    fetchServices();
+  }, [isDeleted]);
 
-    
+  const deleteService = async (serviceId) => {
+        try {
+            const response = await axios.delete(
+                `https://localhost:7014/api/Service/deleteService/${serviceId}`
+            );
+            if (response.status === 200) {
+                console.log("Service deleted:", response.data);
+                setIsDeleted(true);
+            }
+        } catch (error) {
+            console.error("Error deleting service:", error);
+        }
+    };
+
     const handleServiceClick = (service) => {
         // Navigate to availability management for this service
-        navigate(`/calendar-admin/${service.id}`, { 
-            state: { service } 
-        });
+        navigate(`/calendar-admin/${service.serviceId}/${service.serviceName}`);
     };
 
     const handleDeleteService = (serviceId, e) => {
         e.stopPropagation(); 
         
         if (window.confirm('Are you sure you want to delete this service?')) {
-            setServices(services.filter(service => service.id !== serviceId));
+            deleteService(serviceId);
             alert('Service deleted successfully!');
+            setIsDeleted(false);
         }
     };
-
-    const [showModal, setShowModal] = useState(false);
-    const [newServiceName, setNewServiceName] = useState('');
-    const [newServiceDescription, setNewServiceDescription] = useState('');
-    const [newServiceDuration, setNewServiceDuration] = useState('30');
 
     // Open modal
     const handleOpenModal = () => {
@@ -80,30 +72,41 @@ const AdminDashboard = () => {
         setNewServiceDuration('30');
     };
 
+    const createService = async (newService) => {
+        try {
+            const response = await axios.post(
+                "https://localhost:7014/api/Service/createService",
+                newService
+            );
+            if (response.status === 200) {
+                console.log("Service created:", response.data);
+                window.location.reload();
+            }
+        } catch (error) {
+            console.error("Error creating service:", error);
+        }
+    };
+
     // Handle create service
     const handleCreateService = (e) => {
         e.preventDefault();
-        
         if (!newServiceName || !newServiceDescription || !newServiceDuration) {
             alert('Please fill in all fields');
             return;
         }
-
         // Create new service
         const newService = {
-            id: services.length + 1,
-            name: newServiceName,
-            description: newServiceDescription,
-            duration: parseInt(newServiceDuration)
+            serviceName: newServiceName,
+            serviceDescription: newServiceDescription,
+            durationInMinutes: parseInt(newServiceDuration)
         };
-
-        setServices([...services, newService]);
-        alert('Service created successfully!');
+        createService(newService)
         handleCloseModal();
     };
 
     return (
         <div className="admin-dashboard">
+            <NavBar />
             <div className="dashboard-header"> 
                 <h1>Admin Dashboard</h1>
             </div>
@@ -128,23 +131,23 @@ const AdminDashboard = () => {
                     <div className="services-grid">
                         {services.map((service) => (
                             <div 
-                                key={service.id} 
+                                key={service.serviceId} 
                                 className="service-card"
                                 onClick={() => handleServiceClick(service)}
                             >
                                 <div>
-                                    <h3>{service.name}</h3>
+                                    <h3>{service.serviceName}</h3>
                                     <p className="service-description">
-                                        {service.description}
+                                        {service.serviceDescription}
                                     </p>
                                     <p className="service-duration">
-                                        Duration: {service.duration} minutes
+                                        Duration: {service.durationInMinutes} minutes
                                     </p>
                                 </div>
 
                                 <button
                                     className="btn-delete"
-                                    onClick={(e) => handleDeleteService(service.id, e)}
+                                    onClick={(e) => handleDeleteService(service.serviceId, e)}
                                 >
                                     Delete
                                 </button>
