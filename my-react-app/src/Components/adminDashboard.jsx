@@ -5,6 +5,7 @@ import NavBar from './navbar'
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
+    const [errors, setErrors] = useState();
     const [services, setServices] = useState([]);
     const [isDeleted, setIsDeleted] = useState(false);
     const [showModal, setShowModal] = useState(false);
@@ -24,6 +25,7 @@ const AdminDashboard = () => {
         }
       } catch (error) {
         console.error("Error fetching services:", error);
+        setErrors("Failed to fetch services. Please try again later.");
       }
     };
     fetchServices();
@@ -111,7 +113,7 @@ const AdminDashboard = () => {
                 <h1>Admin Dashboard</h1>
             </div>
 
-            <div className= "dashboard-content">
+            {!errors ? (<> <div className= "dashboard-content">
                 <div className="services-management-section">
                     <div className="section-header"> 
                         <div className="section-header-text">
@@ -157,7 +159,11 @@ const AdminDashboard = () => {
 
                 </div> 
     
-            </div>
+            </div> </> ) : (
+                <div className="error-message">
+                    <p>{errors}</p>
+                </div>
+            )}
             {showModal && (
                 <div className="modal-overlay" onClick={handleCloseModal}>
                     <div className="modal-content" onClick={(e) => e.stopPropagation()}>

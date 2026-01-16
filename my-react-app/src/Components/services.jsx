@@ -28,6 +28,7 @@ const Services = () => {
     <div>
       <NavBar />
       <ul class="service-cards">
+        {services.length > 0 ? ( <>
         {services.map((service) => (
           <li
             key={service.serviceId}
@@ -38,7 +39,9 @@ const Services = () => {
             <p>{service.serviceDescription}</p>
             <p>Service Duration : {service.durationInMinutes} mins</p>
           </li>
-        ))}
+        ))} </> ) : (
+          <p>No services available at the moment.</p>
+        )}
       </ul>
     </div>
   );
