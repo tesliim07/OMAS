@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { API_BASE } from "../api";
 import NavBar from "./navbar";
 import { DateTime } from "luxon";
 import axios from "axios";
@@ -19,7 +20,7 @@ const TimeSlot = () => {
     const fetchTimeSlots = async () => {
       try {
         const response = await axios.get(
-          `https://localhost:7014/api/AvailabilitySlot/getAllAvailabilitySlotsByDateAndServiceName/${selectedDateTime}/${serviceName}`
+          `${API_BASE}/api/AvailabilitySlot/getAllAvailabilitySlotsByDateAndServiceName/${selectedDateTime}/${serviceName}`
         );
         if (response.status === 200) {
           setTimeSlots(response.data);

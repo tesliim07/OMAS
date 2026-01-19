@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { API_BASE } from "../api";
 import NavBar from './navbar'
 import axios from 'axios';
 
@@ -28,7 +29,7 @@ const Booking = () => {
         }
         console.log('Creating appointment with data:', formData);
         try {
-            const response = await axios.post(`https://localhost:7014/api/Appointment/createAppointment/${serviceName}/${timeSlotId}`, 
+            const response = await axios.post(`${API_BASE}/api/Appointment/createAppointment/${serviceName}/${timeSlotId}`, 
                 actualFormData
             );
             if (response.status === 200) {

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_BASE } from "../api";
 import NavBar from "./navbar";
 import axios from "axios";
 
@@ -11,7 +12,7 @@ const Services = () => {
     const fetchServices = async () => {
       try {
         const response = await axios.get(
-          "https://localhost:7014/api/Service/getAllServices"
+          `${API_BASE}/api/Service/getAllServices`
         );
         if (response.status === 200) {
           setServices(response.data);

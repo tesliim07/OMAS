@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { API_BASE } from "../api";
 import axios from "axios";
 import NavBar from './navbar'
 
@@ -17,7 +18,7 @@ const AdminDashboard = () => {
     const fetchServices = async () => {
       try {
         const response = await axios.get(
-          "https://localhost:7014/api/Service/getAllServices"
+          `${API_BASE}/api/Service/getAllServices`
         );
         if (response.status === 200) {
           setServices(response.data);
@@ -34,7 +35,7 @@ const AdminDashboard = () => {
   const deleteService = async (serviceId) => {
         try {
             const response = await axios.delete(
-                `https://localhost:7014/api/Service/deleteService/${serviceId}`
+                `${API_BASE}/api/Service/deleteService/${serviceId}`
             );
             if (response.status === 200) {
                 console.log("Service deleted:", response.data);
@@ -77,7 +78,7 @@ const AdminDashboard = () => {
     const createService = async (newService) => {
         try {
             const response = await axios.post(
-                "https://localhost:7014/api/Service/createService",
+                `${API_BASE}/api/Service/createService`,
                 newService
             );
             if (response.status === 200) {

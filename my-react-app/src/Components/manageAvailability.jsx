@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { API_BASE } from "../api";
 import axios from "axios";
 import { DateTime } from "luxon";
 import NavBar from './navbar'
@@ -18,7 +19,7 @@ const ManageAvailability = () => {
     const fetchAvailabilitySlots = async () => {
       try {
         const response = await axios.get(
-          `https://localhost:7014/api/AvailabilitySlot/getAllAvailabilitySlotsByDateAndServiceName/${selectedUtcDate}/${serviceName}`
+          `${API_BASE}/api/AvailabilitySlot/getAllAvailabilitySlotsByDateAndServiceName/${selectedUtcDate}/${serviceName}`
         );
         if (response.status === 200) {
           setAvailabilitySlots(response.data);
@@ -34,7 +35,7 @@ const ManageAvailability = () => {
   const deleteTimeSlot = async (slotId) => {
         try {
             const response = await axios.delete(
-                `https://localhost:7014/api/AvailabilitySlot/deleteAvailabilitySlot/${slotId}`
+                `${API_BASE}/api/AvailabilitySlot/deleteAvailabilitySlot/${slotId}`
             );
             if (response.status === 200) {
                 console.log("Service deleted:", response.data);
@@ -68,7 +69,7 @@ const ManageAvailability = () => {
 
         try {
             const response = await axios.post(
-                `https://localhost:7014/api/AvailabilitySlot/createAvailabilitySlots/${serviceId}/${startUtcTime}/${endUtcTime}`,
+                `${API_BASE}/api/AvailabilitySlot/createAvailabilitySlots/${serviceId}/${startUtcTime}/${endUtcTime}`,
             );
             if (response.status === 200) {
                 console.log("Availability slots created:", response.data);

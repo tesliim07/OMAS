@@ -1,6 +1,7 @@
 import NavBar from "./navbar";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { API_BASE } from "../api";
 import axios from "axios";
 import { DateTime } from "luxon";
 
@@ -12,7 +13,7 @@ const BookingConfirm = () => {
     const fetchAppointment = async () => {
       try {
         const response = await axios.get(
-          `https://localhost:7014/api/Appointment/getAppointmentById/${appointmentId}`
+          `${API_BASE}/api/Appointment/getAppointmentById/${appointmentId}`
         );
         if (response.status === 200) {
           setAppointment(response.data);
@@ -25,7 +26,7 @@ const BookingConfirm = () => {
     const fetchIsSentAppointmentConfirmation = async () => {
       try {
         const response = await axios.get(
-          `https://localhost:7014/api/Appointment/sendAppointmentConfirmation/${appointmentId}`
+          `${API_BASE}/api/Appointment/sendAppointmentConfirmation/${appointmentId}`
         );
         if (response.status === 200) {
           console.log("Appointment Email Sent:", response.data);
@@ -81,7 +82,6 @@ const BookingConfirm = () => {
 
             {appointment.patientEmail && (
               <div>
-                {/* <p>Email: <span className="email">{appointment.patientEmail}</span></p> */}
                 <p>Email: {appointment.patientEmail}</p>
                 <p>
                   A confirmation email with all the details has been sent to
